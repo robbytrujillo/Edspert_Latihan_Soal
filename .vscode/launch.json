@@ -8,7 +8,8 @@
             "name": "git_intro",
             "request": "launch",
             "type": "dart",
-            "deviceId": "192.168.199.102:5555"
+            // "deviceId": "192.168.199.102:5555"
+            "deviceId": "chrome"
         },
         {
             "name": "git_intro (profile mode)",
