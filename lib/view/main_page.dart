@@ -10,6 +10,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final _pc = PageController();
+  int index = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,74 +20,81 @@ class _MainPageState extends State<MainPage> {
         onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-              offset: Offset(0, 4),
-              blurRadius: 20,
-              color: Colors.black.withOpacity(0.06))
-        ]),
-        child: BottomAppBar(
-            color: Colors.white,
-            child: Container(
-              height: 60,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Material(
-                        child: InkWell(
-                          child: Column(
-                            children: [
-                              Image.asset(
+      bottomNavigationBar: _buildButtomNavigation(),
+      body: PageView(
+        children: [],
+      ),
+    );
+  }
+
+  Container _buildButtomNavigation() {
+    return Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            offset: Offset(0, 4),
+            blurRadius: 20,
+            color: Colors.black.withOpacity(0.06))
+      ]),
+      child: BottomAppBar(
+          color: Colors.white,
+          child: Container(
+            height: 60,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Material(
+                      child: InkWell(
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              R.assets.icHome,
+                              height: 20,
+                            ),
+                            Text("Home")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Material(
+                      child: InkWell(
+                        child: Column(
+                          children: [
+                            Opacity(
+                              opacity: 0,
+                              child: Image.asset(
                                 R.assets.icHome,
                                 height: 20,
                               ),
-                              Text("Home")
-                            ],
-                          ),
+                            ),
+                            Text("Diskusi")
+                          ],
                         ),
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Material(
-                        child: InkWell(
-                          child: Column(
-                            children: [
-                              Opacity(
-                                opacity: 0,
-                                child: Image.asset(
-                                  R.assets.icHome,
-                                  height: 20,
-                                ),
-                              ),
-                              Text("Diskusi")
-                            ],
-                          ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Material(
+                      child: InkWell(
+                        child: Column(
+                          children: [Icon(Icons.person), Text("Profile")],
                         ),
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Material(
-                        child: InkWell(
-                          child: Column(
-                            children: [Icon(Icons.person), Text("Profile")],
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            )),
-      ),
+                )
+              ],
+            ),
+          )),
     );
   }
 }
