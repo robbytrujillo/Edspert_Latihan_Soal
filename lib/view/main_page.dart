@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
+import 'package:git_intro/view/main/discussion/chat_page.dart';
+import 'package:git_intro/view/main/latihan_soal/home_page.dart';
+import 'package:git_intro/view/main/profile/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -17,12 +20,25 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        child: Image.asset(
+          R.assets.icDiscuss,
+          width: 30,
+        ),
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ChatPage()));
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: _buildButtomNavigation(),
       body: PageView(
-        children: [],
+        controller: _pc,
+        physics: NeverScrollableScrollPhysics(),
+        children: [
+          HomePage(),
+          //ChatPage(),
+          ProfilePage(),
+        ],
       ),
     );
   }
@@ -46,6 +62,12 @@ class _MainPageState extends State<MainPage> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Material(
                       child: InkWell(
+                        onTap: () {
+                          index = 0;
+                          _pc.animateToPage(index,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.bounceInOut);
+                        },
                         child: Column(
                           children: [
                             Image.asset(
@@ -85,6 +107,14 @@ class _MainPageState extends State<MainPage> {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Material(
                       child: InkWell(
+                        onTap: () {
+                          print("Profile");
+                          index = 1;
+                          _pc.animateToPage(index,
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.easeInOut);
+                          setState(() {});
+                        },
                         child: Column(
                           children: [Icon(Icons.person), Text("Profile")],
                         ),
