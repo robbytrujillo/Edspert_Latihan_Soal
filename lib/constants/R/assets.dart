@@ -7,4 +7,9 @@ class Assets {
   String icHome = "assets/ic_home.png";
 
   //String imgProfile = "assets/ic_home.png";
+  String imgUser = "assets/ic_avatar.png";
+  String imgHome = "assets/img_home.png";
+  String inAction = "assets/ic_atom.png";
+  String imgAtom = "assets/ic_atom.png";
+  String bannerHome = "assets/img_banner.png";
 }
