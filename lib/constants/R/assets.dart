@@ -12,4 +12,5 @@ class Assets {
   String inAction = "assets/ic_atom.png";
   String imgAtom = "assets/ic_atom.png";
   String bannerHome = "assets/img_banner.png";
+  String icNote = "assets/ic_note.png";
 }

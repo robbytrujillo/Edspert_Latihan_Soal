@@ -28,6 +28,7 @@ class _HomePageState extends State<HomePage> {
               //   horizontal: 20,
               // ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
@@ -41,20 +42,21 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    height: 170,
+                    height: 150,
                     child: ListView.builder(
                       itemCount: 5,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: ((context, index) {
                         return Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
+                          padding: const EdgeInsets.only(left: 20.0),
                           child: Image.asset(
                             R.assets.bannerHome,
                           ),
                         );
                       }),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 35),
                 ],
               ),
             )
