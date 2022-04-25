@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
+import 'package:git_intro/view/login_page.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -159,40 +162,48 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ]),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: 13,
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 7,
-                  color: Colors.black.withOpacity(0.25),
-                )
-              ],
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.exit_to_app,
-                  color: Colors.red,
-                ),
-                SizedBox(width: 10),
-                Text(
-                  "Title",
-                  style: TextStyle(
+          GestureDetector(
+            onTap: () async {
+              await GoogleSignIn().signOut();
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil(LoginPage.route, (route) => false);
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: 13,
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 7,
+                    color: Colors.black.withOpacity(0.25),
+                  )
+                ],
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.exit_to_app,
                     color: Colors.red,
-                    //fontSize: 12,
                   ),
-                ),
-              ],
-              // leading: Icon(
-              //   Icons.exit_to_app,
-              //   color: Colors.red,
-              // ),
+                  SizedBox(width: 10),
+                  Text(
+                    "Logout",
+                    style: TextStyle(
+                      color: Colors.red,
+                      //fontSize: 12,
+                    ),
+                  ),
+                ],
+                // leading: Icon(
+                //   Icons.exit_to_app,
+                //   color: Colors.red,
+                // ),
+              ),
             ),
           ),
         ],
