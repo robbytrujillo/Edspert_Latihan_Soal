@@ -72,7 +72,129 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-          )
+          ),
+          //SizedBox(height: 15),
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 7,
+                  color: Colors.black.withOpacity(0.25),
+                )
+              ],
+            ),
+            margin: EdgeInsets.symmetric(
+              vertical: 18,
+              horizontal: 13,
+            ),
+            padding: EdgeInsets.symmetric(
+              vertical: 18,
+              horizontal: 13,
+            ),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text("Identitas Diri"),
+              SizedBox(height: 15),
+              Text(
+                "Nama Lengkap",
+                style: TextStyle(
+                  color: R.colors.greySubtitleHome,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                "Nama Lengkap User",
+                style: TextStyle(
+                  //color: R.colors.greySubtitleHome,
+                  fontSize: 13,
+                ),
+              ),
+              SizedBox(height: 15),
+              Text(
+                "Nama Lengkap",
+                style: TextStyle(
+                  color: R.colors.greySubtitleHome,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                "Nama Lengkap User",
+                style: TextStyle(
+                  //color: R.colors.greySubtitleHome,
+                  fontSize: 13,
+                ),
+              ),
+              SizedBox(height: 15),
+              Text(
+                "Nama Lengkap",
+                style: TextStyle(
+                  color: R.colors.greySubtitleHome,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                "Nama Lengkap User",
+                style: TextStyle(
+                  //color: R.colors.greySubtitleHome,
+                  fontSize: 13,
+                ),
+              ),
+              SizedBox(height: 15),
+              Text(
+                "Nama Lengkap",
+                style: TextStyle(
+                  color: R.colors.greySubtitleHome,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                "Nama Lengkap User",
+                style: TextStyle(
+                  //color: R.colors.greySubtitleHome,
+                  fontSize: 13,
+                ),
+              ),
+            ]),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: 13,
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 7,
+                  color: Colors.black.withOpacity(0.25),
+                )
+              ],
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.exit_to_app,
+                  color: Colors.red,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  "Title",
+                  style: TextStyle(
+                    color: Colors.red,
+                    //fontSize: 12,
+                  ),
+                ),
+              ],
+              // leading: Icon(
+              //   Icons.exit_to_app,
+              //   color: Colors.red,
+              // ),
+            ),
+          ),
         ],
       ),
     );
