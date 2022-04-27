@@ -21,6 +21,14 @@ class SplashScreen extends StatelessWidget {
       } else {
         Navigator.of(context).pushReplacementNamed(LoginPage.route);
       }
+
+      // final Auth _auth = auth();
+
+      // Future<UserCredential> signIn(String email, String password) async {
+      //   final UserCredential user = await _auth
+      //       .signInAndRetrieveDataWithEmailAndPassword(email, password);
+      //   return user;
+      // }
     });
     return Scaffold(
       //  appBar: AppBar(),//parameter appBar menerima sebuah widget appBar juga
