@@ -165,17 +165,25 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           GestureDetector(
             onTap: () async {
-              if (kIsWeb) {
-                await GoogleSignIn(
-                        clientId:
-                            "657815218484-qu94u48immbr13q4rbjg486beid65i2t.apps.googleusercontent.com")
-                    .signOut();
-              } else {
-                await GoogleSignIn().signOut();
+              try {
+                if (kIsWeb) {
+                  // await GoogleSignIn(
+                  //   clientId:
+                  //       "657815218484-qu94u48immbr13q4rbjg486beid65i2t.apps.googleusercontent.com",
+                  //   scopes: <String>[
+                  //     'email',
+                  //     'https://www.googleapis.com/auth/contacts.readonly',
+                  //   ],
+                  // ).signOut();
+                } else {
+                  await GoogleSignIn().signOut();
+                }
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil(LoginPage.route, (route) => false);
+              } catch (e) {
+                print(e);
               }
-              await FirebaseAuth.instance.signOut();
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil(LoginPage.route, (route) => false);
             },
             child: Container(
               margin: EdgeInsets.symmetric(
