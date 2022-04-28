@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
 import 'package:git_intro/view/login_page.dart';
@@ -164,7 +165,14 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           GestureDetector(
             onTap: () async {
-              await GoogleSignIn().signOut();
+              if (kIsWeb) {
+                await GoogleSignIn(
+                        clientId:
+                            "657815218484-qu94u48immbr13q4rbjg486beid65i2t.apps.googleusercontent.com")
+                    .signOut();
+              } else {
+                await GoogleSignIn().signOut();
+              }
               await FirebaseAuth.instance.signOut();
               Navigator.of(context)
                   .pushNamedAndRemoveUntil(LoginPage.route, (route) => false);
