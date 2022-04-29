@@ -13,8 +13,9 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 2), () {
       final user = FirebaseAuth.instance.currentUser;
+      print("test");
       if (user != null) {
         // TODO redirect to register or home
         Navigator.of(context).pushReplacementNamed(MainPage.route);

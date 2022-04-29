@@ -5,18 +5,29 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "git_intro web",
+            "request": "launch",
+            "type": "dart",
+            // "deviceId": "192.168.199.102:5555"
+            "deviceId": "chrome",
+            "args": ["--web-port","50469", "--web-renderer"]
+
+        },
+        {
             "name": "git_intro",
             "request": "launch",
             "type": "dart",
             // "deviceId": "192.168.199.102:5555"
-            "deviceId": "chrome"
-            
+            "deviceId": "chrome",
+            "args": ["--web-port","50469"]
+
         },
         {
             "name": "git_intro (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "args": ["--web-port","50469", "--web-renderer"]
+            
         },
         {
             "name": "git_intro (release mode)",
