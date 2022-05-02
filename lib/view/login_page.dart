@@ -2,6 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
+import 'package:git_intro/constants/repository/auth_api.dart';
+import 'package:git_intro/models/user_by_email.dart';
+import 'package:git_intro/view/main/latihan_soal/home_page.dart';
+import 'package:git_intro/view/main_page.dart';
 import 'package:git_intro/view/register_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -88,7 +92,15 @@ class _LoginPageState extends State<LoginPage> {
 
                   final user = FirebaseAuth.instance.currentUser;
                   if (user != null) {
-                    Navigator.of(context).pushNamed(RegisterPage.route);
+                    final dataUser = await AuthApi().getUserByEmail(user.email);
+                    if (dataUser != null) {
+                      final data = UserByEmail.fromJson(dataUser);
+                      if (data.status == 1) {
+                        Navigator.of(context).pushNamed(MainPage.route);
+                      } else {
+                        Navigator.of(context).pushNamed(RegisterPage.route);
+                      }
+                    }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text("Gagal Masuk"),

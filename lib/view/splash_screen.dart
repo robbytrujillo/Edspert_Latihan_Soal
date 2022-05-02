@@ -3,9 +3,13 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
+import 'package:git_intro/constants/repository/auth_api.dart';
+import 'package:git_intro/models/user_by_email.dart';
 import 'package:git_intro/view/login_page.dart';
 import 'package:git_intro/view/main/latihan_soal/home_page.dart';
 import 'package:git_intro/view/main_page.dart';
+
+import 'register_page.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -13,11 +17,22 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () async {
       final user = FirebaseAuth.instance.currentUser;
       print("test");
       if (user != null) {
-        // TODO redirect to register or home
+        final user = FirebaseAuth.instance.currentUser;
+        if (user != null) {
+          final dataUser = await AuthApi().getUserByEmail(user.email);
+          if (dataUser != null) {
+            final data = UserByEmail.fromJson(dataUser);
+            if (data.status == 1) {
+              Navigator.of(context).pushNamed(MainPage.route);
+            } else {
+              Navigator.of(context).pushNamed(RegisterPage.route);
+            }
+          }
+        }
         Navigator.of(context).pushReplacementNamed(MainPage.route);
       } else {
         Navigator.of(context).pushReplacementNamed(LoginPage.route);

@@ -1,14 +1,14 @@
 class UserByEmail {
   int? status;
   String? message;
-  Data? data;
+  UserData? data;
 
   UserByEmail({this.status, this.message, this.data});
 
   UserByEmail.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new UserData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -22,7 +22,7 @@ class UserByEmail {
   }
 }
 
-class Data {
+class UserData {
   String? iduser;
   String? userName;
   String? userEmail;
@@ -33,7 +33,7 @@ class Data {
   String? userGender;
   String? userStatus;
 
-  Data(
+  UserData(
       {this.iduser,
       this.userName,
       this.userEmail,
@@ -44,7 +44,7 @@ class Data {
       this.userGender,
       this.userStatus});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  UserData.fromJson(Map<String, dynamic> json) {
     iduser = json['iduser'];
     userName = json['user_name'];
     userEmail = json['user_email'];
