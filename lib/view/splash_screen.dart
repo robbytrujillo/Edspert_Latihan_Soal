@@ -25,17 +25,17 @@ class SplashScreen extends StatelessWidget {
       // if (user != null) {
       //   final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        final dataUser = await AuthApi().getUserByEmail();
+        final dataUser = await AuthApi().getUserByEmail(user.email);
         if (dataUser != null) {
           final data = UserByEmail.fromJson(dataUser);
           if (data.status == 1) {
-            Navigator.of(context).pushNamed(MainPage.route);
+            //Navigator.of(context).pushNamed(MainPage.route);
           } else {
             Navigator.of(context).pushNamed(RegisterPage.route);
           }
         }
         // }
-        Navigator.of(context).pushReplacementNamed(MainPage.route);
+        //Navigator.of(context).pushReplacementNamed(MainPage.route);
       } else {
         Navigator.of(context).pushReplacementNamed(LoginPage.route);
       }
