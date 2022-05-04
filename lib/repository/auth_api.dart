@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:git_intro/constants/api_url.dart';
+import 'package:git_intro/helpers/user_email.dart';
 
 class AuthApi {
   Dio dioApi() {
@@ -48,9 +49,9 @@ class AuthApi {
     }
   }
 
-  Future<Map<String, dynamic>?> getUserByEmail(email) async {
-    final result =
-        await _getRequest(endpoint: ApiURL.users, param: {"email": email});
+  Future<Map<String, dynamic>?> getUserByEmail() async {
+    final result = await _getRequest(
+        endpoint: ApiURL.users, param: {"email": UserEmail.getUserEmail()});
     return result;
   }
 }
