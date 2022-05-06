@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
 //import 'package:git_intro/constants/repository/auth_api.dart';
 import 'package:git_intro/helpers/user_email.dart';
+import 'package:git_intro/models/network_response.dart';
 import 'package:git_intro/models/user_by_email.dart';
 import 'package:git_intro/repository/auth_api.dart';
 import 'package:git_intro/view/login_page.dart';
@@ -25,11 +26,11 @@ class SplashScreen extends StatelessWidget {
       // if (user != null) {
       //   final user = FirebaseAuth.instance.currentUser;
       if (user != null) {
-        final dataUser = await AuthApi().getUserByEmail(user.email);
-        if (dataUser != null) {
-          final data = UserByEmail.fromJson(dataUser);
+        final dataUser = await AuthApi().getUserByEmail();
+        if (dataUser.status == Status.success) {
+          final data = UserByEmail.fromJson(dataUser.data!);
           if (data.status == 1) {
-            //Navigator.of(context).pushNamed(MainPage.route);
+            Navigator.of(context).pushNamed(MainPage.route);
           } else {
             Navigator.of(context).pushNamed(RegisterPage.route);
           }
