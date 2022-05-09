@@ -57,7 +57,7 @@ class AuthApi {
     // }
   }
 
-  Future<NetworkResponse?> _postRequest({endpoint, body}) async {
+  Future<NetworkResponse> _postRequest({endpoint, body}) async {
     try {
       final dio = dioApi();
       final result = await dio.post(endpoint, data: body);
