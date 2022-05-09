@@ -39,6 +39,8 @@ class AuthApi {
 
   getUserByEmail() {}
 
+  postRegister(Map<String, String?> json) {}
+
   //Future<Map<String, dynamic>?> _getRequest({endpoint, param}) async {
   // try {
 
@@ -86,3 +88,11 @@ Future<NetworkResponse> getUserByEmail() async {
 }
 
 _getRequest({endpoint, param}) {}
+
+Future<NetworkResponse?> postRegister(body) async {
+  final result = await _postRequest(
+    endpoint: ApiURL.userRegistrasi,
+    body: body,
+  );
+  return result;
+}
