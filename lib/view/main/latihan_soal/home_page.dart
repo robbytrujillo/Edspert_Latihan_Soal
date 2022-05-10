@@ -1,7 +1,12 @@
+import 'dart:ffi';
 import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
+import 'package:git_intro/models/banner_list.dart';
+import 'package:git_intro/models/mapel_list.dart';
+import 'package:git_intro/models/network_response.dart';
+import 'package:git_intro/repository/latihan_soal_api.dart';
 import 'package:git_intro/view/main/latihan_soal/mapel_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,6 +18,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  MapelList? mapelList;
+  getMapel() async {
+    final mapelResult = await LatihanSoalApi().getMapel();
+    if (mapelResult.status == Status.success) {
+      mapelList = MapelList.fromJson(mapelResult.data!);
+      setState(() {});
+    }
+  }
+
+  BannerList? bannerList;
+  getBanner() async {
+    final banner = await LatihanSoalApi().getBanner();
+    if (banner.status == Status.success) {
+      bannerList = BannerList.fromJson(banner.data!);
+      setState(() {});
+    }
+  }
+
+  @override
+  void iniState() {
+    super.initState();
+    getMapel();
+    getBanner();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,21 +71,29 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Container(
-                    height: 150,
-                    child: ListView.builder(
-                      itemCount: 5,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: ((context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Image.asset(
-                            R.assets.bannerHome,
+                  bannerList == null
+                      ? Container(
+                          height: 70,
+                          child: Center(
+                            child: CircularProgressIndicator(),
                           ),
-                        );
-                      }),
-                    ),
-                  ),
+                        )
+                      : Container(
+                          height: 150,
+                          child: ListView.builder(
+                            itemCount: bannerList!.data!.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: ((context, index) {
+                              final currentBanner = bannerList!.data![index];
+                              return Padding(
+                                padding: const EdgeInsets.only(left: 20.0),
+                                child: Image.network(
+                                  currentBanner.eventImage!,
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
                   SizedBox(height: 35),
                 ],
               ),
