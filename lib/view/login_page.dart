@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
+import 'package:git_intro/helpers/preference_helper.dart';
 import 'package:git_intro/models/network_response.dart';
 //import 'package:git_intro/constants/repository/auth_api.dart';
 import 'package:git_intro/models/user_by_email.dart';
@@ -99,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                       // if (dataUser.status != Status.success) {
                       final data = UserByEmail.fromJson(dataUser.data!);
                       if (data.status == 1) {
+                        await PreferenceHelper().setUserData(data.data!);
                         Navigator.of(context).pushNamed(MainPage.route);
                       } else {
                         Navigator.of(context).pushNamed(RegisterPage.route);

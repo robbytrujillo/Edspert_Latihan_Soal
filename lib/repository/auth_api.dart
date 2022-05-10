@@ -37,7 +37,7 @@ class AuthApi {
     // }
   }
 
-  getUserByEmail() {}
+  //getUserByEmail() {}
 
   postRegister(Map<String, String?> json) {
     //Future<Map<String, dynamic>?> _getRequest({endpoint, param}) async {
@@ -76,15 +76,15 @@ class AuthApi {
 
   // dioApi() {}
 
-  // Future<NetworkResponse> getUserByEmail() async {
-  //   final result = await _getRequest(
-  //     endpoint: ApiURL.users,
-  //     param: {
-  //       "email": await UserEmail.getUserEmail(),
-  //     },
-  //   );
-  //   return result;
-  // }
+  Future<NetworkResponse> getUserByEmail() async {
+    final result = await _getRequest(
+      endpoint: ApiURL.users,
+      param: {
+        "email": await UserEmail.getUserEmail(),
+      },
+    );
+    return result;
+  }
 
   //_getRequest({endpoint, param}) {}
 

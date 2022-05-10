@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
+import 'package:git_intro/helpers/preference_helper.dart';
 import 'package:git_intro/helpers/user_email.dart';
 import 'package:git_intro/models/network_response.dart';
 import 'package:git_intro/models/user_by_email.dart';
@@ -86,6 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 if (result.status == Status.success) {
                   final registerResult = UserByEmail.fromJson(result.data!);
                   if (registerResult.status == 1) {
+                    await PreferenceHelper().setUserData(registerResult.data!);
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         MainPage.route, (context) => false);
                   } else {
