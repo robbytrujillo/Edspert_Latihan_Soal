@@ -1,15 +1,36 @@
+//import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
+import 'package:git_intro/models/network_response.dart';
+import 'package:git_intro/models/paket_soal_list.dart';
+import 'package:git_intro/repository/latihan_soal_api.dart';
 
 class PaketSoalPage extends StatefulWidget {
-  const PaketSoalPage({Key? key}) : super(key: key);
+  const PaketSoalPage({Key? key, required this.id}) : super(key: key);
   static String route = "paket_soal_page";
+  final String id;
 
   @override
   State<PaketSoalPage> createState() => _PaketSoalPageState();
 }
 
 class _PaketSoalPageState extends State<PaketSoalPage> {
+  PaketSoalList? paketSoalList;
+  getPaketSoal() async {
+    final mapelResult = await LatihanSoalApi().getPaketSoal(widget.id);
+    if (mapelResult.status == Status.success) {
+      paketSoalList = PaketSoalList.fromJson(mapelResult.data!);
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPaketSoal();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,18 +48,22 @@ class _PaketSoalPageState extends State<PaketSoalPage> {
                   fontWeight: FontWeight.bold,
                 )),
             Expanded(
-              child: GridView.count(
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                crossAxisCount: 2,
-                childAspectRatio: 3 / 2,
-                children: [
-                  PaketSoalWidget(),
-                  PaketSoalWidget(),
-                  PaketSoalWidget(),
-                  PaketSoalWidget(),
-                ],
-              ),
+              child: paketSoalList == null
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : GridView.count(
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      crossAxisCount: 2,
+                      childAspectRatio: 3 / 2,
+                      children: [
+                        PaketSoalWidget(),
+                        PaketSoalWidget(),
+                        PaketSoalWidget(),
+                        PaketSoalWidget(),
+                      ],
+                    ),
             ),
           ],
         ),

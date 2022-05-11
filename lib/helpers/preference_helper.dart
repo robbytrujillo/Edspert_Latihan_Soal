@@ -22,7 +22,7 @@ class PreferenceHelper {
     await _pref.getString(key);
   }
 
-  setUserData(UserData, userDataModel) async {
+  setUserData(UserData userDataModel) async {
     final json = userDataModel.toJson();
     final userDataString = jsonEncode(json);
     await _saveString(userData, userDataString);

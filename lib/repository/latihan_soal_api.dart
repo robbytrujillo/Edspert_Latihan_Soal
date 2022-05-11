@@ -87,6 +87,17 @@ class LatihanSoalApi {
     return result;
   }
 
+  Future<NetworkResponse> getPaketSoal(id) async {
+    final result = await _getRequest(
+      endpoint: ApiURL.latihanPaketSoal,
+      param: {
+        "exercise_id": id,
+        "user_email": await UserEmail.getUserEmail(),
+      },
+    );
+    return result;
+  }
+
   Future<NetworkResponse> getBanner() async {
     final result = await _getRequest(
       endpoint: ApiURL.banner,
