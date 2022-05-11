@@ -1,4 +1,4 @@
-import 'dart:ffi';
+//import 'dart:ffi';
 import 'dart:html';
 
 import 'package:flutter/material.dart';
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             _buildUserHomeProfile(),
             _buildTopBanner(context),
-            _buildHomeListMapel(),
+            _buildHomeListMapel(mapelList),
             Container(
               // margin: EdgeInsets.symmetric(
               //   horizontal: 20,
@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
                   bannerList == null
                       ? Container(
                           height: 70,
+                          width: double.infinity,
                           child: Center(
                             child: CircularProgressIndicator(),
                           ),
@@ -87,8 +88,11 @@ class _HomePageState extends State<HomePage> {
                               final currentBanner = bannerList!.data![index];
                               return Padding(
                                 padding: const EdgeInsets.only(left: 20.0),
-                                child: Image.network(
-                                  currentBanner.eventImage!,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    currentBanner.eventImage!,
+                                  ),
                                 ),
                               );
                             }),
@@ -104,7 +108,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Container _buildHomeListMapel() {
+  Container _buildHomeListMapel(MapelList? list) {
+    print("list!.data.length");
+    print(list?.data!.length);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 21),
       child: Column(
@@ -133,9 +139,22 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-          MapelWidget(),
-          MapelWidget(),
-          MapelWidget(),
+          list == null
+              ? Container(
+                  height: 70,
+                  width: double.infinity,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: list.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return MapelWidget();
+                  },
+                )
         ],
       ),
     );
