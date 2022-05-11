@@ -91,7 +91,7 @@ class LatihanSoalApi {
     final result = await _getRequest(
       endpoint: ApiURL.latihanPaketSoal,
       param: {
-        "exercise_id": id,
+        "course_id": id,
         "user_email": await UserEmail.getUserEmail(),
       },
     );
