@@ -81,7 +81,7 @@ class LatihanSoalApi {
       endpoint: ApiURL.latihanMapel,
       param: {
         "major_name": "IPA",
-        "email": await UserEmail.getUserEmail(),
+        "user_email": await UserEmail.getUserEmail(),
       },
     );
     return result;

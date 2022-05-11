@@ -127,7 +127,10 @@ class _HomePageState extends State<HomePage> {
               Spacer(),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(MapelPage.route);
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return MapelPage(mapel: mapelList!);
+                  }));
                 },
                 child: Text(
                   "Lihat Semua",
@@ -150,9 +153,14 @@ class _HomePageState extends State<HomePage> {
               : ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
-                  itemCount: list.data!.length,
+                  itemCount: list.data!.length > 3 ? 3 : list.data!.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return MapelWidget();
+                    final currentMapel = list.data![index];
+                    return MapelWidget(
+                      title: currentMapel.courseName!,
+                      totalPacket: currentMapel.jumlahMateri!,
+                      totalDone: currentMapel.jumlahDone!,
+                    );
                   },
                 )
         ],
@@ -239,8 +247,14 @@ class _HomePageState extends State<HomePage> {
 class MapelWidget extends StatelessWidget {
   const MapelWidget({
     Key? key,
+    required this.title,
+    required this.totalDone,
+    required this.totalPacket,
   }) : super(key: key);
 
+  final String title;
+  final int? totalDone;
+  final int? totalPacket;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -265,14 +279,14 @@ class MapelWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Matematika",
+                title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 12,
                 ),
               ),
               Text(
-                "0/50 Paket latihan soal",
+                "$totalDone/$totalPacket Paket latihan soal",
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 12,
