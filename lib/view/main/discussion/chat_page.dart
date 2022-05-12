@@ -1,7 +1,11 @@
+import 'dart:html';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
@@ -151,8 +155,18 @@ class _ChatPageState extends State<ChatPage> {
                                     Icons.camera_alt,
                                     color: Colors.blue,
                                   ),
-                                  onPressed: () {
-                                    print(textController.text);
+                                  onPressed: () async {
+                                    final imgResult = await ImagePicker.platform
+                                        .pickImage(source: ImageSource.camera);
+                                    if (imgResult != null) {
+                                      File file = File(imgResult.path);
+
+                                      FirebaseStorage.instance
+                                          .ref()
+                                          .child("chat/kimia/userId")
+                                          .putFile(file);
+                                      //print(textController.text);
+                                    }
                                   },
                                 ),
                                 contentPadding: EdgeInsets.zero,
@@ -203,4 +217,8 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
+}
+
+class FirebaseStorage {
+  static var instance;
 }
