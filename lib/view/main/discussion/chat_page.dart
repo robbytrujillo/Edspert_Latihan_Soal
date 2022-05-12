@@ -228,7 +228,6 @@ class _ChatPageState extends State<ChatPage> {
                         "ref": null,
                         "type": "text",
                         "file_url": null,
-                        "file_url": "user.photoURL",
                         "time": FieldValue.serverTimestamp(),
                       };
                       chat.add(chatContent).whenComplete(() {
