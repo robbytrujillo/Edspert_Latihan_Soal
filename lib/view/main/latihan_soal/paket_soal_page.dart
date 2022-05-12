@@ -5,6 +5,7 @@ import 'package:git_intro/constants/r.dart';
 import 'package:git_intro/models/network_response.dart';
 import 'package:git_intro/models/paket_soal_list.dart';
 import 'package:git_intro/repository/latihan_soal_api.dart';
+import 'package:git_intro/view/main/latihan_soal/kerjakan_latihan_soal_page.dart';
 
 class PaketSoalPage extends StatefulWidget {
   const PaketSoalPage({Key? key, required this.id}) : super(key: key);
@@ -95,39 +96,48 @@ class PaketSoalWidget extends StatelessWidget {
   final PaketSoalData data;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Colors.white),
-      //margin: const EdgeInsets.all(13.0),
-      padding: const EdgeInsets.all(13.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.blue.withOpacity(0.2)),
-            padding: EdgeInsets.all(12),
-            child: Image.asset(
-              R.assets.icNote,
-              width: 14,
-            ),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => KerjakanLatihanSoalPage(id: data.exerciseId!),
           ),
-          SizedBox(height: 4),
-          Text(
-            data.exerciseTitle!,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10), color: Colors.white),
+        //margin: const EdgeInsets.all(13.0),
+        padding: const EdgeInsets.all(13.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.blue.withOpacity(0.2)),
+              padding: EdgeInsets.all(12),
+              child: Image.asset(
+                R.assets.icNote,
+                width: 14,
+              ),
             ),
-          ),
-          Text(
-            "${data.jumlahDone}/${data.jumlahSoal} Paket Soal",
-            style: TextStyle(
+            SizedBox(height: 4),
+            Text(
+              data.exerciseTitle!,
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 9,
-                color: R.colors.greySubtitleHome),
-          ),
-        ],
+              ),
+            ),
+            Text(
+              "${data.jumlahDone}/${data.jumlahSoal} Paket Soal",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 9,
+                  color: R.colors.greySubtitleHome),
+            ),
+          ],
+        ),
       ),
     );
   }

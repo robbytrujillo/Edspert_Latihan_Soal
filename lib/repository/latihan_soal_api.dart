@@ -109,11 +109,14 @@ class LatihanSoalApi {
   }
   //_getRequest({endpoint, param}) {}
 
-  // Future<NetworkResponse?> postRegister(body) async {
-  //   final result = await _postRequest(
-  //     endpoint: ApiURL.userRegistrasi,
-  //     body: body,
-  //   );
-  //   return result;
-  // }
+  Future<NetworkResponse?> postQuestionList(id) async {
+    final result = await _postRequest(
+      endpoint: ApiURL.latihanKerjakanSoal,
+      body: {
+        "exercise_id": id,
+        "user_email": UserEmail.getUserEmail(),
+      },
+    );
+    return result;
+  }
 }
