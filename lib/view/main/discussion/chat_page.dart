@@ -1,4 +1,5 @@
-import 'dart:html';
+// import 'dart:html' as html;
+// import 'dart:io' as io;
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,7 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({Key? key}) : super(key: key);
+  const ChatPage({Key? key, this.id}) : super(key: key);
+  final String? id;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -158,12 +160,16 @@ class _ChatPageState extends State<ChatPage> {
                                   onPressed: () async {
                                     final imgResult = await ImagePicker.platform
                                         .pickImage(source: ImageSource.camera);
+
                                     if (imgResult != null) {
                                       File file = File(imgResult.path);
-
+                                      final name = imgResult.path.split("/");
+                                      //imgResult.n
+                                      String ref =
+                                          "chat/${widget.id}/${user.uid}/${name.last}";
                                       FirebaseStorage.instance
                                           .ref()
-                                          .child("chat/kimia/userId")
+                                          .child(ref)
                                           .putFile(file);
                                       //print(textController.text);
                                     }
