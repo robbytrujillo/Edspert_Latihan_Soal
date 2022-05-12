@@ -105,7 +105,20 @@ class _ChatPageState extends State<ChatPage> {
                                             ? Radius.circular(0)
                                             : Radius.circular(10),
                                       )),
-                                  child: Text(currentChat["content"]),
+                                  child: currentChat["type"] == "file"
+                                      ? Image.network(
+                                          currentChat["file_url"],
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Container(
+                                              padding: EdgeInsets.all(10),
+                                              child: Icon(Icons.warning),
+                                            );
+                                          },
+                                        )
+                                      : Text(
+                                          currentChat["content"],
+                                        ),
                                 ),
                                 Text(
                                   currentDate == null
@@ -158,8 +171,12 @@ class _ChatPageState extends State<ChatPage> {
                                     color: Colors.blue,
                                   ),
                                   onPressed: () async {
-                                    final imgResult = await ImagePicker()
-                                        .pickImage(source: ImageSource.camera);
+                                    final imgResult =
+                                        await ImagePicker().pickImage(
+                                      source: ImageSource.camera,
+                                      maxWidth: 500,
+                                      maxHeight: 500,
+                                    );
 
                                     if (imgResult != null) {
                                       File file = File(imgResult.path);
