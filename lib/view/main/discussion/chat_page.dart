@@ -158,20 +158,39 @@ class _ChatPageState extends State<ChatPage> {
                                     color: Colors.blue,
                                   ),
                                   onPressed: () async {
-                                    final imgResult = await ImagePicker.platform
+                                    final imgResult = await ImagePicker()
                                         .pickImage(source: ImageSource.camera);
 
                                     if (imgResult != null) {
                                       File file = File(imgResult.path);
                                       final name = imgResult.path.split("/");
-                                      //imgResult.n
+                                      String room = widget.id ?? "kimia";
                                       String ref =
-                                          "chat/${widget.id}/${user.uid}/${name.last}";
-                                      FirebaseStorage.instance
+                                          "chat/$room/${user.uid}/${imgResult.name}";
+                                      final imgResUpload = await FirebaseStorage
+                                          .instance
                                           .ref()
                                           .child(ref)
                                           .putFile(file);
                                       //print(textController.text);
+                                      final url = await imgResUpload.ref
+                                          .getDownloadURL();
+
+                                      final chatContent = {
+                                        "nama": user.displayName,
+                                        "uid": user.uid,
+                                        "content": textController.text,
+                                        "email": user.email,
+                                        "photo": user.photoURL,
+                                        "ref": ref,
+                                        "type": "file",
+                                        "file_url": url,
+                                        "time": FieldValue.serverTimestamp(),
+                                      };
+                                      chat.add(chatContent).whenComplete(() {
+                                        textController.clear();
+                                        //   getDataFromFirebase();
+                                      });
                                     }
                                   },
                                 ),
@@ -206,6 +225,9 @@ class _ChatPageState extends State<ChatPage> {
                         "content": textController.text,
                         "email": user.email,
                         "photo": user.photoURL,
+                        "ref": null,
+                        "type": "text",
+                        "file_url": null,
                         "file_url": "user.photoURL",
                         "time": FieldValue.serverTimestamp(),
                       };
