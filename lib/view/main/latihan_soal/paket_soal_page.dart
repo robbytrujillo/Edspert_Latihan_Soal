@@ -48,28 +48,38 @@ class _PaketSoalPageState extends State<PaketSoalPage> {
                   fontWeight: FontWeight.bold,
                 )),
             Expanded(
-              child: paketSoalList == null
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : GridView.count(
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      crossAxisCount: 2,
-                      childAspectRatio: 4 / 3,
-                      children:
-                          List.generate(paketSoalList!.data!.length, (index) {
-                        final currentPaketSoal = paketSoalList!.data![index];
-                        return PaketSoalWidget(data: currentPaketSoal);
-                      }).toList()
-                      // [
-                      // PaketSoalWidget(),
-                      // PaketSoalWidget(),
-                      // PaketSoalWidget(),
-                      // PaketSoalWidget(),
-                      // ],
-                      ),
-            ),
+                child: paketSoalList == null
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : SingleChildScrollView(
+                        child: Wrap(
+                          children: List.generate(paketSoalList!.data!.length,
+                              (index) {
+                            final currentPaketSoal =
+                                paketSoalList!.data![index];
+                            return Container(
+                                padding: EdgeInsets.all(3),
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                child: PaketSoalWidget(data: currentPaketSoal));
+                          }).toList(),
+                        ),
+                      )
+                //  GridView.count(
+                //   mainAxisSpacing: 10,
+                //   crossAxisSpacing: 10,
+                //   crossAxisCount: 2,
+                //   childAspectRatio: 4 / 3,
+                //   children:
+
+                // [
+                // PaketSoalWidget(),
+                // PaketSoalWidget(),
+                // PaketSoalWidget(),
+                // PaketSoalWidget(),
+                // ],
+                ),
+            // ),
           ],
         ),
       ),
