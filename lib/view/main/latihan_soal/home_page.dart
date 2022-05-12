@@ -1,6 +1,7 @@
 //import 'dart:ffi';
 import 'dart:html';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:git_intro/constants/r.dart';
@@ -39,13 +40,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   setupFcm() async {
+    final tokenFcm = await FirebaseMessaging.instance.getToken();
+    print("tokenfcm: $tokenFcm");
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
 
     // if (initialMessage != null) {
     //   _handleMessage(initialMessage);
     // }
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
 
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    print('User granted permission: ${settings.authorizationStatus}');
+    FirebaseMessaging.onMessageOpenedApp.listen((event) {});
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground ');
       print('Message data: ${message.data}');
