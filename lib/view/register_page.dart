@@ -80,12 +80,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   "nama_sekolah": schoolNameController.text,
                   "kelas": selectedClass,
                   "gender": gender,
-                  "foto": UserEmail.getUserDisplayName(),
+                  //"foto": UserEmail.getUserDisplayName(),
+                  "foto": UserEmail.getUserPhotoUrl(),
                 };
                 print(json);
                 final result = await AuthApi().postRegister(json);
-                if (result.status == Status.success) {
-                  final registerResult = UserByEmail.fromJson(result.data!);
+                if (result?.status == Status.success) {
+                  final registerResult = UserByEmail.fromJson(result!.data!);
                   if (registerResult.status == 1) {
                     await PreferenceHelper().setUserData(registerResult.data!);
                     Navigator.of(context).pushNamedAndRemoveUntil(
@@ -97,6 +98,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     );
                   }
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content:
+                          Text("Terjadi kesalahan, silahkan ulangi kembali"),
+                    ),
+                  );
                 }
               },
               backgroundColor: R.colors.primary,
@@ -142,14 +150,16 @@ class _RegisterPageState extends State<RegisterPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            primary: gender == "Laki-laki"
-                                ? R.colors.primary
-                                : Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                side: BorderSide(
-                                    width: 1, color: R.colors.greyBorder))),
+                          elevation: 0,
+                          primary: gender == "Laki-laki"
+                              ? R.colors.primary
+                              : Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: BorderSide(
+                                width: 1, color: R.colors.greyBorder),
+                          ),
+                        ),
                         onPressed: () {
                           onTapGender(Gender.lakiLaki);
                         },
@@ -208,9 +218,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 width: double.infinity,
                 padding: EdgeInsets.symmetric(horizontal: 14),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Colors.white,
-                    border: Border.all(color: R.colors.greyBorder)),
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  border: Border.all(color: R.colors.greyBorder),
+                ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                       value: selectedClass,
