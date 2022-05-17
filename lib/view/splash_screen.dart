@@ -14,12 +14,21 @@ import 'package:git_intro/view/main_page.dart';
 
 import 'register_page.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
   static String route = "splash_screen";
 
   @override
-  Widget build(BuildContext context) {
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  // @override
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     Timer(const Duration(seconds: 2), () async {
       final user = UserEmail.getUserEmail();
 
@@ -49,6 +58,10 @@ class SplashScreen extends StatelessWidget {
       //   return user;
       // }
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       //  appBar: AppBar(),//parameter appBar menerima sebuah widget appBar juga
       body: GestureDetector(
