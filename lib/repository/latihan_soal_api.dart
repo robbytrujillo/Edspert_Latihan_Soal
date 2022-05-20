@@ -119,4 +119,6 @@ class LatihanSoalApi {
     );
     return result;
   }
+
+  postStudentAnswer(Map<String, Object?> payload) {}
 }
