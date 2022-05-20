@@ -259,14 +259,25 @@ class _KerjakanLatihanSoalPageState extends State<KerjakanLatihanSoalPage>
   }
 }
 
-class BottomsheetConfirmation extends StatefulWidget {
+class BottomsheetConfirmation extends StatelessWidget {
   const BottomsheetConfirmation({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<BottomsheetConfirmation> createState() =>
-      _BottomsheetConfirmationState();
+  Widget build(BuildContext context) {
+    return BottomsheetConfirmation();
+  }
+}
+
+class BottomsheetConfirmation extends StatefulWidget {
+  const BottomsheetConfirmation({
+    Key? key,
+  }) : super(key: key);
+
+  // @override
+  // State<BottomsheetConfirmation> createState() =>
+  //     _BottomsheetConfirmationState();
 }
 
 class _BottomsheetConfirmationState extends State<BottomsheetConfirmation> {
