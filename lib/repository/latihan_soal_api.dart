@@ -21,41 +21,41 @@ class LatihanSoalApi {
   }
 
   Future<NetworkResponse> _getRequest({endpoint, param}) async {
-    // try {
-    final dio = dioApi();
-    final result = await dio.get(endpoint, queryParameters: param);
-    return NetworkResponse.success(result.data);
-    // } on DioError catch (e) {
-    //   if (e.type == DioErrorType.sendTimeout) {
-    //     return NetworkResponse.error(data: null, message: "request timeout");
-    //   }
-    //   return NetworkResponse.error(data: null, message: "request error dio");
-    //   // print("error dio");
-    // } catch (e) {
-    //   return NetworkResponse.error(data: null, message: "other error");
-    //   // print("error lainnya");
-    // }
+    try {
+      final dio = dioApi();
+      final result = await dio.get(endpoint, queryParameters: param);
+      return NetworkResponse.success(result.data);
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.sendTimeout) {
+        return NetworkResponse.error(data: null, message: "request timeout");
+      }
+      return NetworkResponse.error(data: null, message: "request error dio");
+      // print("error dio");
+    } catch (e) {
+      return NetworkResponse.error(data: null, message: "other error");
+      // print("error lainnya");
+    }
   }
 
   //getUserByEmail() {}
 
-  postRegister(Map<String, String?> json) {
-    //Future<Map<String, dynamic>?> _getRequest({endpoint, param}) async {
-    // try {
+  //postRegister(Map<String, String?> json) {
+  //Future<Map<String, dynamic>?> _getRequest({endpoint, param}) async {
+  // try {
 
-    /// final dio = dioApi();
-    // final result = await dio.get(endpoint, queryParameters: param);
-    // return result.data;
+  /// final dio = dioApi();
+  // final result = await dio.get(endpoint, queryParameters: param);
+  // return result.data;
 
-    // } on DioError catch (e) {
-    //   if (e.type == DioErrorType.sendTimeout) {
-    //     print("error timeout");
-    //   }
-    //   print("error dio");
-    // } catch (e) {
-    //   print("error lainnya");
-    // }
-  }
+  // } on DioError catch (e) {
+  //   if (e.type == DioErrorType.sendTimeout) {
+  //     print("error timeout");
+  //   }
+  //   print("error dio");
+  // } catch (e) {
+  //   print("error lainnya");
+  // }
+  // }
 
   Future<NetworkResponse> _postRequest({endpoint, body}) async {
     try {
@@ -107,6 +107,17 @@ class LatihanSoalApi {
     );
     return result;
   }
+
+  Future<NetworkResponse> getResult(id) async {
+    final result = await _getRequest(
+      endpoint: ApiURL.latihanSkor,
+      param: {
+        "exercise_id": id,
+        "user_email": UserEmail.getUserEmail(),
+      },
+    );
+    return result;
+  }
   //_getRequest({endpoint, param}) {}
 
   Future<NetworkResponse?> postQuestionList(id) async {
@@ -120,5 +131,11 @@ class LatihanSoalApi {
     return result;
   }
 
-  postStudentAnswer(Map<String, Object?> payload) {}
+  Future<NetworkResponse> postStudentAnswer(payLoad) async {
+    final result = await _postRequest(
+        endpoint: ApiURL.latihanSubmitJawaban, body: payLoad);
+    return result;
+  }
+
+  //postStudentAnswer(Map<String, Object?> payload) {}
 }
