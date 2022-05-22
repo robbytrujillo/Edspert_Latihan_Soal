@@ -164,6 +164,7 @@ class ButtonLogin extends StatelessWidget {
     required this.child,
     required this.borderColor,
     required this.onTap,
+    int? radius,
   }) : super(key: key);
 
   final Color backgroundColor;

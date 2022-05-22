@@ -34,9 +34,11 @@ class _MainPageState extends State<MainPage> {
       body: PageView(
         controller: _pc,
         physics: NeverScrollableScrollPhysics(),
+        // ignore: prefer_const_literals_to_create_immutables
         children: [
           HomePage(),
           //ChatPage(),
+          // ignore: prefer_const_constructors
           ProfilePage(),
         ],
       ),
