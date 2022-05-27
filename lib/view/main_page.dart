@@ -18,6 +18,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    var profilePage = ProfilePage();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Image.asset(

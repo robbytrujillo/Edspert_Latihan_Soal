@@ -39,17 +39,10 @@ class _ProfilePageState extends State<ProfilePage> {
         actions: [
           TextButton(
             onPressed: () async {
-              if (kIsWeb) {
-                await GoogleSignIn(
-                        clientId:
-                            "604293972193-n678jbsfgjp9416d8nnibndjtumviia8.apps.googleusercontent.com")
-                    .signOut();
-              } else {
-                await GoogleSignIn().signOut();
-              }
-              await FirebaseAuth.instance.signOut();
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil(LoginPage.route, (route) => false);
+                  .push(MaterialPageRoute(builder: (BuildContext context) {
+                return EditProfilePage();
+              }));
             },
             child: Text(
               "Edit",
@@ -212,7 +205,6 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    // try {
                     if (kIsWeb) {
                       await GoogleSignIn(
                               clientId:
@@ -224,9 +216,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     await FirebaseAuth.instance.signOut();
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         LoginPage.route, (route) => false);
-                    // } catch (e) {
-                    //   print(e);
-                    // }
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(
@@ -251,17 +240,13 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         SizedBox(width: 10),
                         Text(
-                          "Logout",
+                          "Keluar",
                           style: TextStyle(
                             color: Colors.red,
                             //fontSize: 12,
                           ),
                         ),
                       ],
-                      // leading: Icon(
-                      //   Icons.exit_to_app,
-                      //   color: Colors.red,
-                      // ),
                     ),
                   ),
                 ),
